@@ -11,6 +11,11 @@ namespace JiraRestApiWrapper
             return Url($"issue/{issueKey}");
         }
 
+        public static string TransitionsByKey(string issueKey)
+        {
+            return Url($"issue/{issueKey}/transitions");
+        }
+
         public static string Issue()
         {
             return Url("issue");

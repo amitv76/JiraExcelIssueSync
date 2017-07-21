@@ -1,6 +1,6 @@
 ﻿namespace JiraClient
 {
-    partial class frmLogin
+    partial class FrmLogin
     {
         /// <summary>
         /// Required designer variable.
@@ -103,7 +103,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtUsername);
-            this.Name = "frmLogin";
+            this.Name = "FrmLogin";
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();

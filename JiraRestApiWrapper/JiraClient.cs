@@ -22,6 +22,7 @@ namespace JiraRestApiWrapper
         /// Constructs a JiraClient.
         /// </summary>
         /// <param name="account">Jira account information</param>
+        /// <param name="webProxy"></param>
         public JiraClient(JiraAccount account, IWebProxy webProxy)
         {
             _client = new RestClient(account.ServerUrl)
@@ -105,7 +106,21 @@ namespace JiraRestApiWrapper
             return issue.fields != null ? issue : null;
         }
 
-		public bool UpdateIssueFields(string issuekey, object fields)
+        public Issue GetTransitions(string issueKey)//, IEnumerable<string> fields = null)
+        {
+            //var fieldsString = ToCommaSeparatedString(fields);
+
+            var request = new RestRequest
+            {
+                Resource = $"{ResourceUrls.TransitionsByKey(issueKey)}?expand=transitions.fields",
+                Method = Method.GET
+            };
+
+            var issue = Execute<Issue>(request, HttpStatusCode.OK);
+            return issue.fields != null ? issue : null;
+        }
+
+        public bool UpdateIssueFields(string issuekey, object fields)
 		{
 			var request = new RestRequest
 			{
@@ -185,7 +200,7 @@ namespace JiraRestApiWrapper
 	    /// <returns>the Issues of the specified project</returns>
 	    public Issues GetIssuesByProject(string projectKey, int startAt, int maxResults, IEnumerable<string> fields = null)
         {
-            return GetIssuesByJql("project=" + projectKey, startAt, maxResults, fields);
+            return GetIssuesByJql("project=" + projectKey + " ORDER BY Key", startAt, maxResults, fields);
         }
 
         /// <summary>

@@ -11,17 +11,11 @@ using JiraRESTClient;
 
 namespace JiraClient
 {
-    public partial class frmLogin : Form
+    public partial class FrmLogin : Form
     {
-        private bool _authenticated = false;
+        public bool Authenticated { get; set; } = false;
 
-        public bool Authenticated
-        {
-            get { return _authenticated; }
-            set { _authenticated = value; }
-        }
-
-        public frmLogin()
+        public FrmLogin()
         {
             InitializeComponent();
         }
@@ -36,7 +30,9 @@ namespace JiraClient
                 this.Hide();
                 Authenticated = true;
 
-                frmSyncIssues frm = new frmSyncIssues();
+                FrmSyncIssues frm = new FrmSyncIssues();
+                //Set the client before bye to login
+                frm.Client = client.JiraClient;
                 frm.ShowDialog();
             }
             else

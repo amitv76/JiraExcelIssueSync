@@ -5,14 +5,14 @@ namespace JiraRestApiWrapper.JiraModel
     public class Fields
     {
         /// <summary>
-        /// Release notes field
+        /// Score
         /// </summary>
-        public string customfield_10400 { get; set; }
+        public int customfield_13503 { get; set; }
 
         /// <summary>
-        /// Available From field
+        /// Action
         /// </summary>
-        public Version customfield_10700 { get; set; }
+        public customfield customfield_13901 { get; set; }
         public Progress progress { get; set; }
         public string summary { get; set; }
         public Timetracking timetracking { get; set; }

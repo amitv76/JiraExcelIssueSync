@@ -11,6 +11,8 @@ namespace JiraRESTClient
 {
     public class RestClient
     {
+        public JiraClient JiraClient { get; private set; }
+
         public bool AuthenticateToJira(string jiraUrl, string username, string password)
         {
             var userExists = false;
@@ -25,6 +27,7 @@ namespace JiraRESTClient
                                             User = username,
                                             Password = password
                                         }, proxy);
+            JiraClient = client;
             userExists = true;
 
             try
