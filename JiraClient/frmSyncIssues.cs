@@ -1,14 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using JiraRESTClient;
-using JiraRestApiWrapper;
 using JiraRestApiWrapper.JiraModel;
 using static System.Windows.Forms.CloseReason;
 
@@ -17,7 +9,7 @@ namespace JiraClient
     public partial class FrmSyncIssues : Form
     {
         private Issues _issues = null;
-        private readonly List<ActionItem> _actionList = null;
+        private static List<ActionItem> _actionList = null;
 
         private Issue SelectedIssue
         {
@@ -26,13 +18,13 @@ namespace JiraClient
 
         public JiraRestApiWrapper.JiraClient Client { get; set; }
 
-        public List<ActionItem> ActionList
+        public static List<ActionItem> ActionList
         {
             get
             {
                 if (_actionList == null)
                 {
-                    return
+                    _actionList =
                             new List<ActionItem>
                             {
                                 new ActionItem() {Name = "None", Value = ""},

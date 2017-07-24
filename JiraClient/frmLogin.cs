@@ -33,7 +33,15 @@ namespace JiraClient
                 FrmSyncIssues frm = new FrmSyncIssues();
                 //Set the client before bye to login
                 frm.Client = client.JiraClient;
-                frm.ShowDialog();
+
+                FrmExcelView frmExcel = new FrmExcelView();
+                frmExcel.Client = client.JiraClient;
+
+                //Show per issue editing
+                //frm.ShowDialog();
+
+                //Update all issues
+                frmExcel.ShowDialog();
             }
             else
             {

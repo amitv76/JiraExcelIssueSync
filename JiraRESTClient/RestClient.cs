@@ -42,5 +42,29 @@ namespace JiraRESTClient
                    
             return userExists;
         }
+
+        public async Task<bool> UpdateJiraIssueAsync(JiraRestApiWrapper.JiraClient client, string issueKey, string score, customfield actionStatus)
+        {
+            bool updated = false;
+
+            var updateIssue = new
+            {
+                //{"errorMessages":[],"errors":{"customfield_13901":"Invalid value 'customfield_13901' passed for customfield 'Action'. 
+                //Allowed values are: 15205[New], 13902[Investigating], 15600[Scored], 13906[Backlog], 13905[Refined], 13904[In Progress], 15000[To Deploy], 15001[Done],
+                //                      13903[On Hold], -1"}}
+                fields = new
+                {
+                    customfield_13503 = decimal.Parse(score),
+                    customfield_13901 = actionStatus
+                }
+            };
+
+            if (client.UpdateIssueFields(issueKey, updateIssue))
+            {
+                updated = true;
+            }
+
+            return updated;
+        }
     }
 }
