@@ -1,4 +1,4 @@
-﻿namespace JiraClient
+﻿namespace UI
 {
     partial class FrmSyncIssues
     {
@@ -169,9 +169,9 @@
             // 
             this.btnUpload.Location = new System.Drawing.Point(58, 319);
             this.btnUpload.Name = "btnUpload";
-            this.btnUpload.Size = new System.Drawing.Size(456, 70);
+            this.btnUpload.Size = new System.Drawing.Size(456, 52);
             this.btnUpload.TabIndex = 2;
-            this.btnUpload.Text = "Upload to JIRA";
+            this.btnUpload.Text = "Update to Jira";
             this.btnUpload.UseVisualStyleBackColor = true;
             this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
@@ -195,7 +195,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FrmSyncIssues";
-            this.Text = "frmSyncIssues";
+            this.Text = "Sync Issue";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmSyncIssues_FormClosing);
             this.Load += new System.EventHandler(this.frmSyncIssues_Load);
             this.panel1.ResumeLayout(false);

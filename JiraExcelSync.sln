@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraClient", "JiraClient\JiraClient.csproj", "{ED181412-52E8-4875-9D31-34E085B0F0C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "JiraClient\UI.csproj", "{ED181412-52E8-4875-9D31-34E085B0F0C4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JiraRestClient", "JiraRESTClient\JiraRestClient.csproj", "{7695EAC4-E0AE-4825-916D-9D2A5D7E1FA1}"
 EndProject

@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using JiraRestApiWrapper.JiraModel;
-using static System.Windows.Forms.CloseReason;
 
-namespace JiraClient
+namespace UI
 {
     public partial class FrmSyncIssues : Form
     {
@@ -91,7 +90,7 @@ namespace JiraClient
                 //                      13903[On Hold], -1"}}
                 fields = new
                 {
-                    customfield_13503 = int.Parse(txtScore.Text),
+                    customfield_13503 = decimal.Parse(txtScore.Text),
                     customfield_13901 = new customfield()
                     {
                         value = (cmbAction.SelectedItem as ActionItem)?.Name,
@@ -149,7 +148,7 @@ namespace JiraClient
 
         private void FrmSyncIssues_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.Cancel == false && e.CloseReason == UserClosing)
+            if (e.Cancel == false && e.CloseReason == CloseReason.UserClosing)
                 Application.Exit();
         }
     }

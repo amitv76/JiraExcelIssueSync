@@ -1,15 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using JiraRESTClient;
 
-namespace JiraClient
+namespace UI
 {
     public partial class FrmLogin : Form
     {
@@ -30,9 +23,9 @@ namespace JiraClient
                 this.Hide();
                 Authenticated = true;
 
-                FrmSyncIssues frm = new FrmSyncIssues();
+                //FrmSyncIssues frm = new FrmSyncIssues();
                 //Set the client before bye to login
-                frm.Client = client.JiraClient;
+                //frm.Client = client.JiraClient;
 
                 FrmExcelView frmExcel = new FrmExcelView();
                 frmExcel.Client = client.JiraClient;

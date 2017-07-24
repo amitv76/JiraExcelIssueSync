@@ -8,7 +8,7 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using JiraRestApiWrapper.JiraModel;
 using JiraRESTClient;
 
-namespace JiraClient
+namespace UI
 {
     public partial class FrmExcelView : Form
     {
@@ -17,9 +17,11 @@ namespace JiraClient
             InitializeComponent();
         }
 
-        List<string> _headers = new List<string>();
+        //List<string> _headers = new List<string>();
         public JiraRestApiWrapper.JiraClient Client { get; set; }
         private Issues _issues = null;
+
+        private FileStream _excelFile = null;
 
         private void LoadIssueData()
         {
@@ -40,11 +42,20 @@ namespace JiraClient
             return _issues.issues.Find(a => a.key == issueKey);
         }
 
-
         private void btnExcelData_Click(object sender, EventArgs e)
         {
-            UpdateJiraFromExcelData();
-            MessageBox.Show("Done!");
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                UpdateJiraFromExcelData();
+
+                MessageBox.Show("Update is complete.", "Sync", MessageBoxButtons.OK);
+            }
+            finally
+            {
+                Cursor.Current = Cursors.Default;
+            }
         }
 
         private string GetCellValue(SpreadsheetDocument doc, Cell cell, uint rowIndex)
@@ -66,9 +77,9 @@ namespace JiraClient
 
         private void UpdateJiraFromExcelData()
         {
-            string fileName = @"2017 Projects Choiceboard (Muni) FINAL.xlsx";
+            //string fileName = @"2017 Projects Choiceboard (Muni) FINAL.xlsx";
 
-            using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (FileStream fs = _excelFile)
             {
                 using (SpreadsheetDocument doc = SpreadsheetDocument.Open(fs, false))
                 {
@@ -77,8 +88,7 @@ namespace JiraClient
 
                     // Find the sheet with the supplied name, and then use that 
                     // Sheet object to retrieve a reference to the first worksheet.
-                    Sheet theSheet = workbookPart.Workbook.Descendants<Sheet>().Where(s => s.Name == "Client Requests")
-                        .FirstOrDefault();
+                    Sheet theSheet = workbookPart.Workbook.Descendants<Sheet>().FirstOrDefault(s => s.Name == "Client Requests");
 
                     // Throw an exception if there is no sheet.
                     if (theSheet == null)
@@ -116,7 +126,7 @@ namespace JiraClient
                             {
                                 var colunmName = GetCellValue(doc, cell, row.RowIndex);
                                 Console.WriteLine(colunmName);
-                                _headers.Add(colunmName);
+                                //_headers.Add(colunmName);
                             }
                         }
                         else
@@ -198,6 +208,42 @@ namespace JiraClient
                             }
                         }
                     }
+                }
+            }
+        }
+
+        private void FrmExcelView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.Cancel == false && e.CloseReason == CloseReason.UserClosing)
+                Application.Exit();
+        }
+
+        private void FrmExcelView_Load(object sender, EventArgs e)
+        {
+            ProjectMeta projectMetaData = Client.GetProjectMeta("MUN"); //hackathon proj in JIRA
+            txtProject.Text = projectMetaData.name;
+
+            btnExcelData.Enabled = false;
+        }
+
+        private void btnBrowseToExcel_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.Filter = "Excel Files|*.xlsx";
+            openFileDialog1.Title = "Select a Excel file";
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                try
+                {
+                    _excelFile = openFileDialog1.OpenFile() as FileStream;
+                    lblExcelPath.Text = _excelFile.Name;
+                    btnExcelData.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
             }
         }
