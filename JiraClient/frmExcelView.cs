@@ -48,7 +48,20 @@ namespace UI
             {
                 Cursor.Current = Cursors.WaitCursor;
 
-                UpdateJiraFromExcelData();
+                //If filestream has ben disposed, recreate it.
+                if ((!_excelFile.CanSeek) && lblExcelPath.Text.Length > 0)
+                {
+                    _excelFile = new FileStream(lblExcelPath.Text, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                }
+
+                if (_excelFile.CanSeek)
+                {
+                    UpdateJiraFromExcelData();
+                }
+                else
+                {
+                    MessageBox.Show("Relaunch the app.", "Sync", MessageBoxButtons.OK);
+                }
 
                 MessageBox.Show("Update is complete.", "Sync", MessageBoxButtons.OK);
             }
@@ -78,6 +91,7 @@ namespace UI
         private void UpdateJiraFromExcelData()
         {
             //string fileName = @"2017 Projects Choiceboard (Muni) FINAL.xlsx";
+
 
             using (FileStream fs = _excelFile)
             {
