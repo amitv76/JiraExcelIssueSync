@@ -51,9 +51,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
             this.label1.Location = new System.Drawing.Point(80, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(118, 16);
+            this.label1.Size = new System.Drawing.Size(139, 16);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Connect to JIRA";
+            this.label1.Text = "Connect to Jira API";
             // 
             // label2
             // 
@@ -92,7 +92,7 @@
             this.btnLogin.UseVisualStyleBackColor = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
-            // frmLogin
+            // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -104,7 +104,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtUsername);
             this.Name = "FrmLogin";
-            this.Text = "Login";
+            this.Text = "J-Sync Login";
             this.ResumeLayout(false);
             this.PerformLayout();
 

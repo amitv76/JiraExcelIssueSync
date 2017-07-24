@@ -39,6 +39,7 @@
             // 
             // btnExcelData
             // 
+            this.btnExcelData.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExcelData.Location = new System.Drawing.Point(52, 160);
             this.btnExcelData.Name = "btnExcelData";
             this.btnExcelData.Size = new System.Drawing.Size(769, 37);
@@ -112,7 +113,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnExcelData);
             this.Name = "FrmExcelView";
-            this.Text = "Sync Excel to Jira";
+            this.Text = "J-Sync: Sync Excel to Jira";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmExcelView_FormClosing);
             this.Load += new System.EventHandler(this.FrmExcelView_Load);
             this.ResumeLayout(false);
