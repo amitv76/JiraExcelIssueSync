@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Windows.Forms;
 using JiraRestApiWrapper.JiraModel;
 
@@ -114,7 +115,7 @@ namespace UI
 
         private void RefreshData()
         {
-            ProjectMeta projectMetaData = Client.GetProjectMeta("MUN"); //hackathon proj in JIRA
+            ProjectMeta projectMetaData = Client.GetProjectMeta(ConfigurationManager.AppSettings["JiraProject"]); //hackathon proj in JIRA
 
             //Action
             cmbAction.DataSource = ActionList;
@@ -143,7 +144,7 @@ namespace UI
                     "customfield_13901"
                 }; //custom fields are JIRA fields for Score & Action
 
-            _issues = Client.GetIssuesByProject("MUN", 0, 1000, fields);
+            _issues = Client.GetIssuesByProject(ConfigurationManager.AppSettings["JiraProject"], 0, 1000, fields);
         }
 
         private void FrmSyncIssues_FormClosing(object sender, FormClosingEventArgs e)

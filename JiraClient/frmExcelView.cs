@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -34,7 +35,7 @@ namespace UI
                     "customfield_13901"
                 }; //custom fields are JIRA fields for Score & Action
 
-            _issues = Client.GetIssuesByProject("MUN", 0, 1000, fields);
+            _issues = Client.GetIssuesByProject(ConfigurationManager.AppSettings["JiraProject"], 0, 1000, fields);
         }
 
         private Issue GetSelectedIssue(string issueKey)
@@ -231,7 +232,7 @@ namespace UI
 
         private void FrmExcelView_Load(object sender, EventArgs e)
         {
-            ProjectMeta projectMetaData = Client.GetProjectMeta("MUN"); //hackathon proj in JIRA
+            ProjectMeta projectMetaData = Client.GetProjectMeta(ConfigurationManager.AppSettings["JiraProject"]); //hackathon proj in JIRA
             txtProject.Text = projectMetaData.name;
 
             btnExcelData.Enabled = false;
