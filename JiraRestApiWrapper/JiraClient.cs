@@ -23,7 +23,7 @@ namespace JiraRestApiWrapper
         /// </summary>
         /// <param name="account">Jira account information</param>
         /// <param name="webProxy"></param>
-        public JiraClient(JiraAccount account, IWebProxy webProxy)
+        public JiraClient(JiraAccount account, IWebProxy webProxy = null)
         {
             _client = new RestClient(account.ServerUrl)
             {

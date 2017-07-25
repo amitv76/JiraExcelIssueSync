@@ -90,9 +90,6 @@ namespace UI
 
         private void UpdateJiraFromExcelData()
         {
-            //string fileName = @"2017 Projects Choiceboard (Muni) FINAL.xlsx";
-
-
             using (FileStream fs = _excelFile)
             {
                 using (SpreadsheetDocument doc = SpreadsheetDocument.Open(fs, false))

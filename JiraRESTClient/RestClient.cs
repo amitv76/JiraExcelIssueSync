@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using JiraRestApiWrapper;
 using System.Net;
@@ -13,14 +10,15 @@ namespace JiraRESTClient
     {
         public JiraClient JiraClient { get; private set; }
 
-        public bool AuthenticateToJira(string jiraUrl, string username, string password)
+        public async Task<bool> AuthenticateToJiraAsync(string jiraUrl, string username, string password, string jiraProject,
+                                        string proxyUrl = "", string proxyUser = "", string proxyPassword = "")
         {
             var userExists = false;
 
             //Connect to Jira with username and password. Please be aware that the information returned by the Jira REST API depends on the access rigths of the user.
             //Add Jira URI to proxy bypass list if you get proxy errors
 
-            var proxy = new WebProxy("ncproxy.ideal.corp.local:8080", true, null, new NetworkCredential("VermaAmi", "G0lden01"));
+            var proxy = new WebProxy(proxyUrl, true, null, new NetworkCredential(proxyUser, proxyPassword));
             var client = new JiraClient(new JiraAccount
                                         {
                                             ServerUrl = jiraUrl,
@@ -33,7 +31,7 @@ namespace JiraRESTClient
             try
             {
                 //Just to test if login was valid
-                ProjectMeta projectMetaData = client.GetProjectMeta("MUNI");
+                ProjectMeta projectMetaData = client.GetProjectMeta(jiraProject);
             }            
             catch(Exception ex)
             {
