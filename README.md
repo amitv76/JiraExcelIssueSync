@@ -1,3 +1,3 @@
 # JiraExcelIssueSync
 
-See the presentaion (.ppt)
+See the presentaion (.pptx)
